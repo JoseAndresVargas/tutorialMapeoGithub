@@ -5,13 +5,13 @@ import folium
 from folium.plugins import MarkerCluster
 
 # 2. Definir el área geográfica y las etiquetas de las características a descargar
-place = "Curitiba, Brazil"
-tags = {"highway": "bus_stop"}
-description = "Bus Stop"
+place = "Alajuela, Costa Rica"
+tags = {"sport": "soccer", "sport": "futsal"}
+description = "Canchas de fútbol en Alajuela, Costa Rica (pueden ser plazas o de futsala)"
 zoom_level = 13
 
 # 3. Especificar qué campos mostrar dentro de las ventanas emergentes de los marcadores
-popup_fields = ["name", "operator", "network", "ref"]
+popup_fields = ["nombre", "equipo"]
 
 # 4. Descargar las características de las paradas de autobús de OpenStreetMap para el lugar elegido
 gdf = ox.features_from_place(place, tags=tags)
