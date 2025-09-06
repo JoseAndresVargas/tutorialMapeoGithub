@@ -7,11 +7,13 @@ from folium.plugins import MarkerCluster
 # 2. Definir el área geográfica y las etiquetas de las características a descargar
 place = "Alajuela, Costa Rica"
 tags = {"sport": "soccer", "sport": "futsal"}
+etiqueta_capa_cluster = "Cancha fútbol (Cluster)"
+etiqueta_capa_puntos = "Cancha fútbol (Points)"
 description = "Canchas de fútbol en Alajuela, Costa Rica (pueden ser plazas o de futsala)"
 zoom_level = 13
 
 # 3. Especificar qué campos mostrar dentro de las ventanas emergentes de los marcadores
-popup_fields = ["nombre", "equipo"]
+popup_fields = ["name", "operator", "surface"]
 
 # 4. Descargar las características de las paradas de autobús de OpenStreetMap para el lugar elegido
 gdf = ox.features_from_place(place, tags=tags)
@@ -39,7 +41,7 @@ folium.TileLayer(
 ).add_to(m)
 
 # 9. Añadir marcadores de paradas de autobús al mapa utilizando un plugin MarkerCluster
-marker_cluster = MarkerCluster(name="Bus Stops (Cluster)").add_to(m)
+marker_cluster = MarkerCluster(name=etiqueta_capa_cluster).add_to(m)
 for _, row in gdf.iterrows():
     coords = row.geometry
     if coords.geom_type == "Point":
@@ -51,7 +53,7 @@ for _, row in gdf.iterrows():
 # 10. Añadir una capa GeoJSON simple con marcadores circulares interactivos
 interactive_layer = folium.GeoJson(
     gdf,
-    name="Bus Stops (Points)", show=False,
+    name=etiqueta_capa_puntos, show=False,
     marker=folium.CircleMarker(
         radius=5, color="blue", fill=True, fill_opacity=0.7
     ),
